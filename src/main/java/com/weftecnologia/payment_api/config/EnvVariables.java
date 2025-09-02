@@ -16,4 +16,8 @@ public class EnvVariables {
   public static String getUserPasswordDatabase() {
     return dotenv.get("USER_PASSWORD_DATABASE");
   }
+
+  public static String getJWTSecretKey() {
+    return dotenv.get("JWT_SECRET_KEY");
+  }
 }

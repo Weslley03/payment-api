@@ -12,7 +12,7 @@ import com.weftecnologia.payment_api.dto.user.ResponseAuthUserDTO;
 import com.weftecnologia.payment_api.repository.AuthRepository;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class AuthController {
 
   private final AuthRepository authRepository;
@@ -21,9 +21,15 @@ public class AuthController {
     this.authRepository = authRepository;
   }
 
-  @PostMapping("/authentication")
+  @PostMapping()
   public ResponseApiDTO<ResponseAuthUserDTO> auth(@RequestBody AuthUserDTO dto) {
     ResponseAuthUserDTO responseAuthUserDTO = authRepository.auth(dto);
+    if (!responseAuthUserDTO.isSuccess()) {
+      return new ResponseApiDTO<ResponseAuthUserDTO>(
+          "falha na autenticação.",
+          HttpStatus.BAD_REQUEST.value(),
+          responseAuthUserDTO);
+    }
     return new ResponseApiDTO<ResponseAuthUserDTO>("logged user.", HttpStatus.OK.value(), responseAuthUserDTO);
   }
 }
