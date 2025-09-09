@@ -10,3 +10,14 @@ CREATE TABLE IF NOT EXISTS app_users (
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS app_orders (
+  id VARCHAR(36) PRIMARY KEY,
+  user_id VARCHAR(36) NOT NULL,
+  full_price FLOAT NOT NULL,
+  payment_method VARCHAR(12) NOT NULL,
+  status VARCHAR(12) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_users(id)
+);
