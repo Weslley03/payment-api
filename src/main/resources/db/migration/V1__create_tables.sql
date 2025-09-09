@@ -44,3 +44,12 @@ CREATE TABLE IF NOT EXISTS app_bindings (
 
   CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
 );
+
+CREATE TABLE IF NOT EXISTS app_order_have_products (
+  id VARCHAR(36) PRIMARY KEY,
+  order_id VARCHAR(36) NOT NULL,
+  product_id VARCHAR(36) NOT NULL,
+
+  CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
+  CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES app_products(id)
+);
