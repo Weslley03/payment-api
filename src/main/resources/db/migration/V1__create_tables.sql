@@ -18,6 +18,21 @@ CREATE TABLE IF NOT EXISTS app_orders (
   payment_method VARCHAR(12) NOT NULL,
   status VARCHAR(12) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_users(id)
 );
+
+CREATE TABLE IF NOT EXISTS app_stratums (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(36) NOT NULL,
+    order_id VARCHAR(36) NOT NULL,
+    full_price FLOAT NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_users(id),
+    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
+);
+

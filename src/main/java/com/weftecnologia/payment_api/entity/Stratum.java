@@ -12,16 +12,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "app_orders")
-public class Order {
+@Table(name = "app_stratums")
+public class Stratum {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,11 +29,12 @@ public class Order {
   @JoinColumn(name = "user_id", nullable = false)
   private String userId;
 
-  @Column(nullable = false)
-  private float fullPrice;
+  @ManyToOne
+  @JoinColumn(name = "order_id", nullable = false)
+  private String orderId;
 
   @Column(nullable = false)
-  private String paymentMethod;
+  private float fullPrice;
 
   @Column(nullable = false)
   private String status;
