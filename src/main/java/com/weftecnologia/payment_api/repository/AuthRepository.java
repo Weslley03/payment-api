@@ -42,7 +42,7 @@ public class AuthRepository {
             "password inválido.");
       }
 
-      String token = JwtUtil.generateToken(dto.getEmail());
+      String token = JwtUtil.generateToken(user.getId());
       return new ResponseAuthUserDTO(true, "usuário autenticado.", token);
     } catch (Exception e) {
       e.printStackTrace();
