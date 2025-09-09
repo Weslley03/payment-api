@@ -16,8 +16,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "app_users")
-public class User {
+@Table(name = "app_products")
+public class Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,15 +26,11 @@ public class User {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false, unique = true)
-  private String email;
-
   @Column(nullable = false)
-  private String password;
+  private float price;
 
-  public User(String name, String email, String password) {
+  public Product(String name, float price) {
     this.name = name;
-    this.email = email;
-    this.password = password;
+    this.price = price;
   }
 }
