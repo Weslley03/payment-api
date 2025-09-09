@@ -34,3 +34,13 @@ CREATE TABLE IF NOT EXISTS app_stratums (
     CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
 );
 
+
+CREATE TABLE IF NOT EXISTS app_bindings (
+  id VARCHAR(36) PRIMARY KEY,
+  order_id VARCHAR(36) NOT NULL,
+  status VARCHAR(12) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
+);
