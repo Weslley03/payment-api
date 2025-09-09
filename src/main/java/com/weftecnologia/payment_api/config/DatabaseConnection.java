@@ -2,8 +2,10 @@ package com.weftecnologia.payment_api.config;
 
 import javax.sql.DataSource;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -22,5 +24,18 @@ public class DatabaseConnection {
     dataSource.setPassword(PASSWORD);
     dataSource.setDriverClassName("org.postgresql.Driver");
     return dataSource;
+  }
+
+  @Bean
+  @DependsOn("dataSource")
+  public Flyway flyway(DataSource dataSource) {
+    Flyway flyway = Flyway.configure()
+        .dataSource(dataSource)
+        .locations("classpath:db/migration")
+        .baselineOnMigrate(true)
+        .load();
+
+    flyway.migrate();
+    return flyway;
   }
 }
