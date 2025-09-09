@@ -37,9 +37,6 @@ public class Order {
   @Column(nullable = false)
   private String paymentMethod;
 
-  @Column(nullable = false)
-  private String status;
-
   @Column(name = "created_at", updatable = false, insertable = false)
   private LocalDateTime createdAt;
 

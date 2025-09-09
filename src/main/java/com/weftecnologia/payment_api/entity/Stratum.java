@@ -36,9 +36,6 @@ public class Stratum {
   @Column(nullable = false)
   private float fullPrice;
 
-  @Column(nullable = false)
-  private String status;
-
   @Column(name = "created_at", updatable = false, insertable = false)
   private LocalDateTime createdAt;
 
