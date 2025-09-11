@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,10 +23,9 @@ import lombok.Setter;
 public class Order {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-  @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private String userId;
 
@@ -42,4 +40,10 @@ public class Order {
 
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
+
+  public Order(String userId, float fullPrice, String paymentMethod) {
+    this.userId = userId;
+    this.fullPrice = fullPrice;
+    this.paymentMethod = paymentMethod;
+  }
 }

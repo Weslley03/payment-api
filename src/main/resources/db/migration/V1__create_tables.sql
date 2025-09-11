@@ -1,9 +1,3 @@
-CREATE TABLE IF NOT EXISTS app_products (
-  id VARCHAR(36) PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  price FLOAT NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS app_users (
   id VARCHAR(36) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -11,36 +5,50 @@ CREATE TABLE IF NOT EXISTS app_users (
   password VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS app_products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price FLOAT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS app_orders (
-  id VARCHAR(36) PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   user_id VARCHAR(36) NOT NULL,
   full_price FLOAT NOT NULL,
   payment_method VARCHAR(12) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_users(id)
 );
 
 CREATE TABLE IF NOT EXISTS app_stratums (
-    id VARCHAR(36) PRIMARY KEY,
-    user_id VARCHAR(36) NOT NULL,
-    order_id VARCHAR(36) NOT NULL,
-    full_price FLOAT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(36) NOT NULL,
+  order_id INT NOT NULL,
+  full_price FLOAT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_users(id),
-    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_users(id),
+  CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
 );
 
-
 CREATE TABLE IF NOT EXISTS app_bindings (
-  id VARCHAR(36) PRIMARY KEY,
-  order_id VARCHAR(36) NOT NULL,
+  id SERIAL PRIMARY KEY,
+  order_id INT NOT NULL,
   status VARCHAR(12) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id)
+);
+
+CREATE TABLE IF NOT EXISTS app_order_have_products (
+  id SERIAL PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+
+  CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES app_orders(id),
+  CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES app_products(id)
 );

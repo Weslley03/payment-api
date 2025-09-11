@@ -1,36 +1,33 @@
 package com.weftecnologia.payment_api.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "app_products")
-public class Product {
-
+@Table(name = "app_order_have_products")
+public class OrderHaveProduct {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(nullable = false)
-  private String name;
+  @JoinColumn(name = "order_id", nullable = false)
+  private Integer orderId;
 
-  @Column(nullable = false)
-  private float price;
+  @JoinColumn(name = "product_id", nullable = false)
+  private Integer productId;
 
-  public Product(String name, float price) {
-    this.name = name;
-    this.price = price;
+  public OrderHaveProduct(Integer orderId, Integer productId) {
+    this.orderId = orderId;
+    this.productId = productId;
   }
 }

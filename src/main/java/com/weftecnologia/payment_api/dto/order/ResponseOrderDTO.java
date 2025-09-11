@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ResponseOrderDTO {
-  private String id;
+  private Integer id;
   private String userId;
   private String payment_method;
   private Float fullPrice;

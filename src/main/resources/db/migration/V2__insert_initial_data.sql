@@ -1,4 +1,7 @@
+INSERT INTO app_users (id, name, email, password) VALUES
+  ('437bb0cc-89ee-496a-9fa8-cc63529e48b2', 'weslley', 'weslley@hotmail.com', '$2a$10$it9AiB61bv7z3b69dDBUTuOLpuILMgKZTtza0NajWzwvDwywgr6V6');
+
 INSERT INTO app_products (id, name, price) VALUES
-  ('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'Laptop', 2500.00),
-  ('b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Smartphone', 1200.50),
-  ('c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a13', 'Headphones', 199.99);
+  (11, 'Laptop', 2500.00),
+  (99, 'Smartphone', 1200.50),
+  (2, 'Headphones', 199.99);
