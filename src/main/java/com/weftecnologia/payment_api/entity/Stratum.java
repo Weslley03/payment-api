@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,16 +21,14 @@ import lombok.Setter;
 public class Stratum {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-  @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private String userId;
 
-  @ManyToOne
   @JoinColumn(name = "order_id", nullable = false)
-  private String orderId;
+  private Integer orderId;
 
   @Column(nullable = false)
   private float fullPrice;
@@ -41,4 +38,10 @@ public class Stratum {
 
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
+
+  public Stratum(String userId, Integer orderId, float fullPrice) {
+    this.userId = userId;
+    this.orderId = orderId;
+    this.fullPrice = fullPrice;
+  }
 }
