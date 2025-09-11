@@ -45,6 +45,30 @@ public class JwtUtil {
         .getSubject();
   }
 
+  public static String generatePixCode(Integer orderId) {
+    return Jwts.builder()
+        .setSubject("pix_payment")
+        .claim("orderId", orderId)
+        .setIssuedAt(new Date())
+        .setExpiration(new Date(System.currentTimeMillis() + 5 * 60_000))
+        .signWith(key)
+        .compact();
+  }
+
+  public static Integer getOrderId(String token) {
+    if (!JwtUtil.validateToken(token))
+      throw new JwtValidationException("invalid pix code.");
+
+    return Jwts.parserBuilder()
+        .setSigningKey(key)
+        .build()
+        .parseClaimsJws(token)
+        .getBody()
+        .get("orderId", Integer.class);
+  }
+
+  /* TO USE IN CONTROLLER */
+
   public static String JwtValidationMiddleware(String authHeader) {
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       throw new JwtValidationException("Invalid Authorization header");

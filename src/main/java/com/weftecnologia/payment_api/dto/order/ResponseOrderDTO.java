@@ -14,5 +14,19 @@ public class ResponseOrderDTO {
   private String userId;
   private String payment_method;
   private Float fullPrice;
+  private String pixcode;
   private List<ProductDTO> products;
+
+  public ResponseOrderDTO(
+      Integer id,
+      String userId,
+      String payment_method,
+      Float fullPrice,
+      List<ProductDTO> products) {
+    this.id = id;
+    this.userId = userId;
+    this.payment_method = payment_method;
+    this.fullPrice = fullPrice;
+    this.products = products;
+  }
 }

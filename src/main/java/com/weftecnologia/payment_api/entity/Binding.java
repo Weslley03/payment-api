@@ -2,6 +2,8 @@ package com.weftecnologia.payment_api.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.weftecnologia.payment_api.enums.PaymentStatusEnum;
 
 import jakarta.persistence.Column;
@@ -36,11 +38,12 @@ public class Binding {
   @Enumerated(EnumType.STRING)
   private PaymentStatusEnum status;
 
-  @Column(name = "created_at", updatable = false, insertable = false)
-  private LocalDateTime createdAt;
+  @Column(name = "created_at", updatable = false)
+  private LocalDateTime createdAt = LocalDateTime.now();
 
+  @UpdateTimestamp
   @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
+  private LocalDateTime updatedAt = LocalDateTime.now();
 
   public Binding(Integer orderId, PaymentStatusEnum status) {
     this.orderId = orderId;

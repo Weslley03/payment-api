@@ -12,6 +12,7 @@ import com.weftecnologia.payment_api.entity.Order;
 import com.weftecnologia.payment_api.entity.OrderHaveProduct;
 import com.weftecnologia.payment_api.entity.Stratum;
 import com.weftecnologia.payment_api.enums.PaymentStatusEnum;
+import com.weftecnologia.payment_api.util.JwtUtil;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -36,6 +37,11 @@ public class OrderRepository {
 
     em.persist(new Stratum(userId, order.getId(), fullPrice));
     em.persist(new Binding(order.getId(), PaymentStatusEnum.pending));
+
+    if (dto.getPaymentMethod().equals("pix")) {
+      return new ResponseOrderDTO(order.getId(), userId, dto.getPaymentMethod(), fullPrice,
+          JwtUtil.generatePixCode(order.getId()), dto.getProducts());
+    }
 
     return new ResponseOrderDTO(order.getId(), userId, dto.getPaymentMethod(), fullPrice, dto.getProducts());
   }
