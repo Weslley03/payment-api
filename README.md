@@ -22,9 +22,9 @@ check the .env-copy file for required environment variables.
 first, set up the database connection (this project uses postgres):
 
 ```bash
-URL_DATABASE=
-USER_DATABASE=
-USER_PASSWORD_DATABASE=
+URL_DATABASE=jdbc:postgresql://localhost:5432/payment_api
+USER_DATABASE=weslleydev
+USER_PASSWORD_DATABASE=secret123456
 ```
 
 second, set a secret key to be used with jwt:
